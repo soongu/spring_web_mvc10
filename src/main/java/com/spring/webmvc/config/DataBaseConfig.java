@@ -10,6 +10,8 @@ import org.springframework.context.annotation.PropertySource;
 import javax.sql.DataSource;
 
 // DB 접속 관련 설정 (접속, 커넥션풀...)
+
+
 @Configuration
 @PropertySource("classpath:db_info.properties")
 public class DataBaseConfig {
