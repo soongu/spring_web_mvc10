@@ -19,14 +19,30 @@ public class BoardService {
     // 전체 조회 중간처리
     public List<Board> getList() {
         List<Board> boardList = repository.findAll();
+        processBoardList(boardList);
 
+        return boardList;
+    }
 
+    private void processBoardList(List<Board> boardList) {
         for (Board b : boardList) {
             subStringTitle(b);
             convertDateFormat(b);
+            isNewArticle(b);
         }
+    }
 
-        return boardList;
+    private static void isNewArticle(Board b) {
+        // 신규 게시물 new마크 처리 (10분 이내 작성된 게시물)
+        long regDate = b.getRegDate().getTime(); // 게시물 작성 시간(밀리초)
+        long nowDate = System.currentTimeMillis(); // 현재 시간(밀리초)
+
+        long diff = nowDate - regDate; // 작성후 지난 시간(밀리초)
+        long limit = 3 * 60 * 60 * 1000; // 10분을 밀리초로 변환
+
+        if (diff <= limit) {
+            b.setNewArticle(true);
+        }
     }
 
     // 날짜 포맷팅 처리

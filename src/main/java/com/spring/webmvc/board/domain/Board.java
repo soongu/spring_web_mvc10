@@ -22,6 +22,7 @@ public class Board {
     // 커스텀 필드
     private String shortTitle; // 줄임 제목
     private String prettierDate; // 포맷팅한 날짜문자열
+    private boolean newArticle; // 신규게시물 여부
 
 
 
